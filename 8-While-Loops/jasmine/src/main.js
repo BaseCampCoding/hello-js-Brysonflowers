@@ -1,94 +1,94 @@
-console.log("--- Task 1: Determine How Long It Takes to Mix a Juice ---");
-
-const juiceName = "Tropical Island";
+const juiceName = 'All or Nothing';
 let timeToMixJuiceResult;
 
-// Use an if/else if/else chain to determine the mixing time.
-// This is a common alternative to a switch statement.
-if (juiceName === "Pure Strawberry Joy") {
-  timeToMixJuiceResult = 0.5;
-} else if (juiceName === "Energizer" || juiceName === "Green Garden") {
-  timeToMixJuiceResult = 1.5;
-} else if (juiceName === "Tropical Island") {
-  timeToMixJuiceResult = 3;
-} else if (juiceName === "All or Nothing") {
-  timeToMixJuiceResult = 5;
-} else {
-  timeToMixJuiceResult = 2.5;
+//I used a switch statement because they are better for this use case
+switch (juiceName) {
+  case 'Pure Strawberry Joy':
+    timeToMixJuiceResult = 0.5;
+    break;
+  case 'Energizer':
+  case 'Green Garden':
+    timeToMixJuiceResult = 1.5;
+    break;
+  case 'Tropical Island':
+    timeToMixJuiceResult = 3;
+    break;
+  case 'All or Nothing':
+    timeToMixJuiceResult = 5;
+    break;
+  default:
+    timeToMixJuiceResult = 2.5;
+    break;
 }
 
-console.log(`Juice: "${juiceName}"`);
-console.log(`Time to mix: ${timeToMixJuiceResult} minutes`);
+//:)
 
-// --- Task 2: Replenish the Lime Wedge Supply ---
-
-console.log("\n--- Task 2: Replenish the Lime Wedge Supply ---");
+console.log(`(Task 1) Time to mix "${juiceName}": ${timeToMixJuiceResult} minutes.`);
+console.log('---');
 
 const wedgesNeeded = 25;
-const limes = ["small", "large", "large", "medium", "small", "large"];
+const limes = ['small', 'large', 'large', 'medium', 'small'];
 let wedgesCut = 0;
 let limesCut = 0;
 
-for (let i = 0; i < limes.length && wedgesCut < wedgesNeeded; i++) {
-  const limeSize = limes[i];
-  limesCut++;
-
-  // Determine wedges based on lime size
+while (wedgesCut < wedgesNeeded && limesCut < limes.length) {
+  const limeSize = limes[limesCut];
   switch (limeSize) {
-    case "small":
+    case 'small':
       wedgesCut += 6;
       break;
-    case "medium":
+    case 'medium':
       wedgesCut += 8;
       break;
-    case "large":
+    case 'large':
       wedgesCut += 10;
       break;
   }
+  limesCut++; 
 }
 
-console.log(`Wedges needed: ${wedgesNeeded}`);
-console.log("Limes available:", limes);
-console.log(`Total limes cut: ${limesCut}`);
-console.log(`Total wedges cut: ${wedgesCut}`);
+console.log(`(Task 2) Wedges needed: ${wedgesNeeded}`);
+console.log(`(Task 2) Limes available: [${limes.join(', ')}]`);
+console.log(`(Task 2) Number of limes to cut: ${limesCut}`);
+console.log('---');
 
-// --- Task 3: Finish Up the Shift ---
 
-console.log("\n--- Task 3: Finish Up the Shift ---");
 
-const timeLeft = 7;
-const orders = ["Pure Strawberry Joy", "Energizer", "Pure Strawberry Joy", "Tropical Island", "All or Nothing", "Green Garden", "All or Nothing"];
+const timeLeft = 5;
+const orders = ['Energizer', 'Green Garden', 'Tropical Island', 'Pure Strawberry Joy'];
 let timeSpent = 0;
-let remainingOrders = [];
+let ordersProcessed = 0;
 
-for (let i = 0; i < orders.length; i++) {
-  const currentJuice = orders[i];
-  let mixTime;
+// A while loop to process orders as long as Li Mei has time to start a new one.
+while (timeSpent < timeLeft && ordersProcessed < orders.length) {
+  const currentOrder = orders[ordersProcessed];
+  let timeForCurrentOrder;
 
-  // Re-use the logic from Task 1 to determine the mixing time
-  if (currentJuice === "Pure Strawberry Joy") {
-    mixTime = 0.5;
-  } else if (currentJuice === "Energizer" || currentJuice === "Green Garden") {
-    mixTime = 1.5;
-  } else if (currentJuice === "Tropical Island") {
-    mixTime = 3;
-  } else if (currentJuice === "All or Nothing") {
-    mixTime = 5;
-  } else {
-    mixTime = 2.5;
+  switch (currentOrder) {
+    case 'Pure Strawberry Joy':
+      timeForCurrentOrder = 0.5;
+      break;
+    case 'Energizer':
+    case 'Green Garden':
+      timeForCurrentOrder = 1.5;
+      break;
+    case 'Tropical Island':
+      timeForCurrentOrder = 3;
+      break;
+    case 'All or Nothing':
+      timeForCurrentOrder = 5;
+      break;
+    default:
+      timeForCurrentOrder = 2.5;
+      break;
   }
 
-  // Check if Li Mei has time to start the current juice
-  if (timeSpent + mixTime <= timeLeft) {
-    timeSpent += mixTime;
-  } else {
-    // If she can't start it, add all remaining orders to the list
-    remainingOrders = orders.slice(i);
-    break; // Exit the loop since she won't start any more orders
-  }
+  timeSpent += timeForCurrentOrder;
+  ordersProcessed++;
 }
 
-console.log(`Time left in shift: ${timeLeft} minutes`);
-console.log("Incoming orders:", orders);
-console.log(`Juices finished: ${orders.length - remainingOrders.length}`);
-console.log("Remaining orders for next shift:", remainingOrders);
+const remainingOrders = orders.slice(ordersProcessed);
+
+console.log(`(Task 3) Time left in shift: ${timeLeft} minutes`);
+console.log(`(Task 3) Today's orders: [${orders.join(', ')}]`);
+console.log(`(Task 3) Remaining orders: [${remainingOrders.join(', ')}]`);
